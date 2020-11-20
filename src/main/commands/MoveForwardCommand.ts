@@ -3,7 +3,7 @@ import {Position} from "../model/Position";
 
 export class MoveForwardCommand implements ICommand {
     execute(position: Position): Position {
-        return position;
+        return position.moveForward();
     }
 
 }

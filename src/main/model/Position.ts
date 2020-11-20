@@ -1,7 +1,7 @@
 import {Coordinate} from "./Coordinate";
 import {Direction} from "./Direction";
 import {format} from "util";
-import deepEqual from "deep-equal";
+import deepEqual = require("deep-equal");
 
 export class Position {
     private coordinate: Coordinate;

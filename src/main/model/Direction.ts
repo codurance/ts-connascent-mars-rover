@@ -1,4 +1,5 @@
 import {format} from "util";
+
 enum DirectionEnum {
     NORTH = 0,
     EAST = 1,
@@ -9,10 +10,10 @@ export class Direction {
 
     private value: number;
     private static map: Map<any, any> = new Map<any, any>([
-        [0, DirectionEnum[0]],
-        [1, DirectionEnum[1]],
-        [2, DirectionEnum[2]],
-        [3, DirectionEnum[3]]
+        [0, new Direction(0)],
+        [1, new Direction(1)],
+        [2, new Direction(2)],
+        [3, new Direction(3)]
     ])
 
 
@@ -39,7 +40,7 @@ export class Direction {
     }
 
     toString(): string {
-        return format("%s", toString().charAt(0))
+        return format("%s", this.enumValue().charAt(0))
     }
 
     static NORTH(): Direction {

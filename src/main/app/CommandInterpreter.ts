@@ -25,12 +25,6 @@ export class CommandInterpreter {
         return allCommands;
     }
 
-    private getInitializationCommand(commands: string): InitializationCommand {
-        let lines: string[] = commands.split("\n");
-        let topRight: string[] = lines[0].split(" ");
-        return new InitializationCommand(new Coordinate(parseInt(topRight[0]), parseInt(topRight[1])));
-    }
-
     private getMovementCommands(commands: string) {
         let movementCommands = [];
         let lines: string[] = commands.split("\n");
@@ -45,12 +39,15 @@ export class CommandInterpreter {
                 case 'R':
                     movementCommands.push(new TurnRightCommand());
                     break;
-                default:
-                    movementCommands.push(new MoveForwardCommand())
-                    break;
             }
         }
         return movementCommands;
+    }
+
+    private getInitializationCommand(commands: string): InitializationCommand {
+        let lines: string[] = commands.split("\n");
+        let topRight: string[] = lines[0].split(" ");
+        return new InitializationCommand(new Coordinate(parseInt(topRight[0]), parseInt(topRight[1])));
     }
 
     private getStartingPositionCommand(commands: string): StartingPositionCommand {
