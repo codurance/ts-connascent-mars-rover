@@ -17,16 +17,16 @@ export class CommandInterpreter {
     ]);
 
     translate(commands: string): Array<ICommand> {
-        let allCommands = new Array();
+        let allCommands = new Array<ICommand>();
         allCommands.push(this.getInitializationCommand(commands));
         allCommands.push(this.getStartingPositionCommand(commands));
-        allCommands.push(this.getMovementCommands(commands));
+        allCommands.push(...this.getMovementCommands(commands));
 
         return allCommands;
     }
 
-    private getMovementCommands(commands: string) {
-        let movementCommands = [];
+    private getMovementCommands(commands: string): ICommand[] {
+        let movementCommands = new Array<ICommand>();
         let lines: string[] = commands.split("\n");
         for (let command of Array.from(lines[2])) {
             switch (command) {
