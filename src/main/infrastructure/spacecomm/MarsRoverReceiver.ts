@@ -8,12 +8,15 @@ export class MarsRoverReceiver implements IWriteToServiceBus {
     private marsRoverServiceBus!: IMessageReceivedBus;
     private datagrams: Array<string> = new Array<string>();
     private smartTimer: SmartTimer = new SmartTimer();
-
-    private notifyMessage: INotifier = new class implements INotifier {
-        notifyMessage(data: Array<String>): void {
-            this.notifyMessage(data)
+    private notifier: INotifier = new class implements INotifier {
+        private receiver: MarsRoverReceiver;
+        constructor(receiver: MarsRoverReceiver) {
+            this.receiver = receiver;
         }
-    }
+        notifyMessage(data: Array<string>): void {
+            this.receiver.notifyMessage2(data);
+        }
+    }(this);
     private MAX_DELAY_MILLISECONDS: number = 3000;
 
     writesTo(marsRoverServiceBus: IMessageReceivedBus): void {
@@ -31,10 +34,10 @@ export class MarsRoverReceiver implements IWriteToServiceBus {
         }
 
         this.smartTimer.waitMillisecond(this.MAX_DELAY_MILLISECONDS)
-            .beforeDoing(this.notifyMessage, this.datagrams);
+            .beforeDoing(this.notifier, this.datagrams);
     }
 
-    private notifyMessage(datagrams: Array<string>): void {
+    private notifyMessage2(datagrams: Array<string>): void {
         let message: Message = new Message(datagrams);
         if(message.isValid()) {
             this.marsRoverServiceBus.NotifyMessageReceived(message.toString());

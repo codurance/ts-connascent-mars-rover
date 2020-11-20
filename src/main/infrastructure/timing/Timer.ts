@@ -6,7 +6,7 @@ export class Timer {
 
 
     schedule(task: TimerTask, millisecondsToWait: number): void {
-        this.timeout = setTimeout(() => {
+        this.timeout = setTimeout(function() {
             task.run();
         }, millisecondsToWait);
     }

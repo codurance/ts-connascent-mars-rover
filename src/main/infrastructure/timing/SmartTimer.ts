@@ -6,7 +6,7 @@ import {TimerTask} from "./TimerTask";
 export class SmartTimer implements ISmartTimer {
     private millisecondsToWait!: number;
     private isRunning: boolean = false;
-    private timer!: Timer;
+    private timer: Timer = new Timer();
     private task!: TimerTask;
 
     waitMillisecond(milliseconds: number): ISmartTimer {
